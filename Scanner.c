@@ -3,11 +3,12 @@
 #include <unistd.h>
 
 #include "Scanner.h"
+#include "String.h"
 
 //#define SCANNER_GET_PRIVATE(obj)            (((Scanner *)(obj))->priv)
 
 struct _scannerprivate {
-    void * ptr;
+//    void * ptr;
     FILE * fp;    
 };
 
@@ -36,10 +37,15 @@ scnGetString (unsigned int len) {
     ScannerPrivate * priv = OBJECT_GET_PRIVATE (Scanner, actual_scanner);
     
     fgets (str, len, priv->fp);
-    strformat (str);
-    priv->ptr = (void *) strdup(str);
+    if (priv->fp != stdin) {
+        str[len] = 0x00;
+    } else {
+        strformat (str);
+    }
+    // priv->ptr = strdup(str);
+
     
-    return (char *) (priv->ptr);
+    return strdup (str);
 }
 
 PUBLIC int 
@@ -90,10 +96,6 @@ scnSetFileDescriptor (FILE * fp) {
 PUBLIC void
 scndtor (void) {
     ScannerPrivate * priv = OBJECT_GET_PRIVATE (Scanner, actual_scanner);
-    
-    if (priv->ptr != NULL) {
-        DEALLOC (priv->ptr);
-    }
 
     DEALLOC (priv);
     DEALLOC (actual_scanner);
@@ -108,7 +110,7 @@ new_scanner (FILE * fp) {
         exit(1);
     }
         
-//    Scanner * s = ALLOC(1, Scanner);
+
     Scanner * s = NEW (Scanner);
     ScannerPrivate * priv = NEW (ScannerPrivate);
     s->priv = priv;
@@ -126,9 +128,9 @@ new_scanner (FILE * fp) {
     
     s->dtor = scndtor;
     
-    //priv->fp = fp;
+
     priv->fp = fp;
-    priv->ptr = NULL;
+
     
     return s;
 }

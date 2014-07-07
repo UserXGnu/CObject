@@ -9,8 +9,16 @@
 #include "Out.h"
 
 
+typedef enum _streamtype StreamType;
+
 typedef struct _stream Stream;
 typedef struct _streamprivate StreamPrivate;
+
+
+enum _streamtype {
+    T_BINARY,
+    T_CHAR,
+};
 
 struct _stream {
     Object object;

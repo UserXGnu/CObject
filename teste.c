@@ -3,17 +3,16 @@
 
 int
 main (int argc, char ** argv) {
-
+    int a;
+    
     Scanner * in = new_scanner (stdin);
     Out * o = new_out ();
     
-    int a;
-    a = scanner (in)->getInt ();
+    a = scanner (in)->getInt ();law
     
+//    printf ("%d", a);  
     out(o)->Stdout ("%d", a);
-    
-    
+   
     scanner (in)->dtor ();
-    out(o)->dtor ();
     return 0;
 }

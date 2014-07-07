@@ -4,6 +4,7 @@
 #include <stdio.h>
 
 #include "abstraction/Object.h"
+#include "String.h"
 
 
 //#define SCANNER(obj)            ((Scanner *) (obj))

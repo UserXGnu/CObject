@@ -17,9 +17,9 @@ struct _string {
     
     StringPrivate * priv;
     
-    PUBLIC int (* length) (void);
+    PUBLIC int (* Length) (void);
     PUBLIC char * (* getContent) (void);
-   // PUBLIC void (* cat) (String * str);
+    // PUBLIC void (* cat) (String * str);
     PUBLIC void (* setContent) (char * content);  
     PUBLIC void (* dtor) (void);
 };

@@ -62,7 +62,7 @@ new_string (void) {
     
     OBJECT_SET_TYPE (s, T_STRING);
     
-    s->length = strLength;
+    s->Length = strLength;
     s->getContent = strGetContent;   
     s->setContent = strSetContent;
     

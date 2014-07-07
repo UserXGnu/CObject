@@ -11,13 +11,14 @@ main (int argc, char ** argv) {
 
     int main_class (int argc, char ** argv) {
         int i;
-        char * a;
         
         // instanciando as classes Scanner e String ::
         Scanner * s = new_scanner (stdin);
         String * str = new_string ();
+        String * a = new_string ();
         Out * o = new_out ();
-        Stream * strm = new_stream ("teste", "a+"); // contructor may return NULL if file couldn't be openned ::
+        Stream * strm = new_stream ("teste", "ab+"); // contructor may return NULL if file couldn't be openned ::
+        char b[10];
         
         // chamando metodo de leitura de um inteiro ::
         i = scanner(s)->getInt();
@@ -26,20 +27,21 @@ main (int argc, char ** argv) {
     
         string (str)->setContent (scanner (s)->getString (10));
 //        printf ("String: %s | Len: %d\n", string (str)->getContent (), string (str)->length ());
-        out (o)->Stdout ("String: %s | Len: %d\n", string (str)->getContent (), string (str)->length ());
+        out (o)->Stdout ("String: %s | Len: %d\n", string (str)->getContent (), string (str)->Length ());
         
-        stream (strm)->Write (string (str)->getContent ());
+        stream (strm)->WriteBinary (s, sizeof (s));
         
         stream (strm)->ReWind ();
 
-        a = stream (strm)->Read (10);
+        stream (strm)->ReadBinary (a, sizeof (s));
+        out (o)->Stdout ("File: %s\n", string (a)->getContent());
 
-        out (o)->Stdout ("File: %s\n", a);
         
         // destrutors ::
         stream (strm)->dtor ();
         out (o)->dtor ();
         string (str)->dtor ();
+        string (a)->dtor ();
         scanner (s)->dtor ();
 
         return 0;
