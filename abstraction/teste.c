@@ -1,5 +1,6 @@
 #include <stdio.h>
 
+#define VARIAVEL(type, name)    type name
 #define bla(type, name)\
 type * name (type * a, type * b) {\
     type c = *a;\
@@ -8,17 +9,22 @@ type * name (type * a, type * b) {\
     return a;\
 }\
 
-VARIAVEL(int, d);
 
-typedef struct _teste Teste {
+typedef struct _teste {
     char nome[16];
     int idade;
-}
-bla (int, muda);
+} Teste;
+
 
 int main (void) {
+    VARIAVEL(int, d);
+    VARIAVEL(int, a);
+
     d = 20;
     a = 10;
+    bla (int, muda);
+
+    
     int b = 11;
     
     muda (&a, &d);
