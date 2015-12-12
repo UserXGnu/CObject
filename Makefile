@@ -11,9 +11,12 @@ FLAG=-o
 EXEC=Sample
 PIC= -Wall -Werror -fpic
 SHARED=-shared
+SHARED_DIR=libraries
 SHARED_LIBS=libstring.so libscanner.so libout.so libstream.so
 INSTALL_DIR=/usr/lib
 PERM=chmod 0755
+INSTALL_CMD=cp
+LIBS=*.so
 
 c.o:all
 
@@ -24,7 +27,7 @@ shared:
 	$(CC) $(SHARED) $(FLAG) libscanner.so Scanner.o
 	$(CC) $(SHARED) $(FLAG) libout.so Out.o
 	$(CC) $(SHARED) $(FLAG) libstream.so Stream.o
-	
+
 libs:
 	$(CC) $(LIBS) $(LFLAG)
 	$(CC) $(SLIB) $(LFLAG)
@@ -36,5 +39,4 @@ clean:
 all:libs
 	$(CC) $(OBJ) $(MAIN) $(FLAG) $(EXEC)
 	rm -f *.o
-	
 
